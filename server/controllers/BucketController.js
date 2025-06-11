@@ -1,4 +1,4 @@
-const BucketService = require('./services/BucketService');
+const BucketService = require('../services/BucketService');
 
 class BucketController {
     // Добавление товара в корзину
@@ -19,8 +19,8 @@ class BucketController {
     // Получение корзины пользователя
     static async getUserBucket(req, res) {
         try {
-            const userId = req.params.userId;
-            const bucket = await BucketService.getUserBucket(userId);
+            const {id} = req.params
+            const bucket = await BucketService.getUserBucket(id);
             
             if (!bucket || bucket.length === 0) {
                 return res.status(404).json({ message: "Корзина пуста" });
@@ -35,8 +35,8 @@ class BucketController {
     // Удаление товара из корзины
     static async removeItem(req, res) {
         try {
-            const bucketId = req.params.bucketId;
-            const result = await BucketService.removeFromBucket(bucketId);
+            const {id} = req.params;
+            const result = await BucketService.removeFromBucket(id);
             
             if (result === 0) {
                 return res.status(404).json({ message: "Элемент корзины не найден" });
@@ -51,8 +51,8 @@ class BucketController {
 
     static async clearBucket(req, res) {
         try {
-            const userId = req.params.userId;
-            const result = await BucketService.clearUserBucket(userId);
+            const {id} = req.params;
+            const result = await BucketService.clearUserBucket(id);
             
             if (result === 0) {
                 return res.status(404).json({ message: "Корзина уже пуста" });
@@ -66,3 +66,26 @@ class BucketController {
 }
 
 module.exports = BucketController;
+
+// static async switchFavorite(req, res) {
+//     const userId = res.locals.user.id;
+//     const { cardId } = req.params;
+
+//     try {
+//       const favoriteCard = await FavoriteService.isFavorite(userId, cardId);
+
+//       if (favoriteCard) {
+//         await FavoriteService.remove(userId, cardId);
+//         return res
+//           .status(200)
+//           .json({ statusCode: 200, message: "Removed from favorites" });
+//       } else {
+//         await FavoriteService.add(userId, cardId);
+//         return res
+//           .status(201)
+//           .json({ statusCode: 201, message: "Added to favorites" });
+//       }
+//     } catch (error) {
+//       return res.status(500).json({ error: "Something went wrong" });
+//     }
+//   }

@@ -3,7 +3,7 @@ const UserValidator = require("../utils/User.validator");
 const generateToken = require("../utils/ generateToken");
 
 const UserService = require("../services/User.service");
-const { formatResponse } = require("../utils/formatResponse");
+const  formatResponse  = require("../utils/formatResponse");
 
 const cookieConfig = require("../config/cookieConfig");
 

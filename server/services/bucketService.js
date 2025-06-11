@@ -1,13 +1,18 @@
-const { Bucket, Product, User } = require('./db/models')
+const { Bucket, Product, User } = require('../db/models')
 
 class BucketServive {
   static async addToBucket(userId, productId, status = true) {
     try {
-      return await Bucket.create({
-        user_id: userId,
-        product_id: productId,
-        status
-      });
+      return await Bucket.create(
+        {
+          user_id: userId,
+          product_id: productId,
+          status,
+        },
+        // {
+        //   returning: true, // Важно для PostgreSQL!
+        // }
+      );
     } catch (error) {
       throw new Error(`Ошибка добавления в корзину: ${error.message}`);
     }
@@ -20,9 +25,9 @@ class BucketServive {
         include: [
           {
             model: Product,
-            attributes: ['id', 'name', 'price', 'description']
-          }
-        ]
+            attributes: ["id", "name", "price", "description"],
+          },
+        ],
       });
     } catch (error) {
       throw new Error(`Ошибка при загрузке корзины: ${error.message}`);
@@ -32,18 +37,17 @@ class BucketServive {
   static async removeFromBucket(bucketId) {
     try {
       return await Bucket.destroy({
-        where: { id: bucketId }
+        where: { id: bucketId },
       });
     } catch (error) {
       throw new Error(`Ошибка удаления из корзины: ${error.message}`);
     }
   }
 
-
-    static async clearUserBucket(userId) {
+  static async clearUserBucket(userId) {
     try {
       return await Bucket.destroy({
-        where: { user_id: userId }
+        where: { user_id: userId },
       });
     } catch (error) {
       throw new Error(`Ошибка очистки корзины: ${error.message}`);
