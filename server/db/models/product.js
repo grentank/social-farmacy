@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
  stock: { type: DataTypes.BIGINT, allowNull: false }
  }, {
  tableName: 'Products',
- timestamps: false
+ timestamps: true
  });
  Product.associate = function(models) {
  Product.hasMany(models.Bucket, { foreignKey: 'product_id' });
