@@ -3,9 +3,13 @@ const router = require('express').Router(); //* получаем экземпл�
 
 const formatResponse = require('../utils/formatResponse'); //* подтягиваем утилиту для унификации ответа по 404
 const authRouter = require('./auth.router');
+const routerProduct = require('./ProductRouter');
+const UserRouter = require('./user.router');
 
 
 router.use('/auth', authRouter);
+router.use('/product',routerProduct)
+router.use('/user',UserRouter)
   
 //! Обработка всех запросов на несуществующие маршруты (меняем стандартный ответ от express)
 router.use((req, res) => {

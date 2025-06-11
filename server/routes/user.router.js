@@ -1,8 +1,8 @@
-const router = require("express").Router();
+const UserRouter = require("express").Router();
 
 const path = require("path");
 
-const { checkBody, checkId } = require("../middlewares/checkBody");
+const { checkBody, checkId } = require("../middleware/checkBody");
 
 const UserController = require("../controllers/User.controller");
 
@@ -11,10 +11,10 @@ const UserController = require("../controllers/User.controller");
 //   res.status(200).sendFile(path.resolve(__dirname, "../registerForm.html"));
 // });
 
-router
+UserRouter
   .get("/", UserController.getAll)
   .delete("/:id", checkId, UserController.delete)
   .get("/:id", UserController.getOne)
   .put("/:id", UserController.update);
 
-module.exports = router;
+module.exports = UserRouter;
