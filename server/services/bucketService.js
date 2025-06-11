@@ -9,9 +9,9 @@ class BucketServive {
           product_id: productId,
           status,
         },
-        {
-          returning: true, // Важно для PostgreSQL!
-        }
+        // {
+        //   returning: true, // Важно для PostgreSQL!
+        // }
       );
     } catch (error) {
       throw new Error(`Ошибка добавления в корзину: ${error.message}`);
