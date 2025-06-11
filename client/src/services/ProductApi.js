@@ -6,7 +6,7 @@ import { axiosInstance } from "../shared/axiosInstance";
 
 export class ProductApi {
   static async getAll() {
-    const { data } = await axiosInstance.get("/product");
+    const  {data}  = await axiosInstance.get("/product");
     return data
   }
 
