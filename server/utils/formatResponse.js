@@ -1,4 +1,4 @@
-module.exports.formatResponse = ({
+const formatResponse =  ({
   statusCode = 0,
   message = "",
   data = null,
@@ -6,3 +6,5 @@ module.exports.formatResponse = ({
 }) => {
   return { statusCode, message, data, error };
 };
+
+module.exports = formatResponse
