@@ -24,15 +24,15 @@ export class UserValidator {
     }
   }
 
-  static validate({ username, email, password }) {
+  static validate({ name, email, password }) {
     if (
-      !username ||
+      !name ||
       !email ||
       !password ||
-      typeof username !== 'string' ||
+      typeof name !== 'string' ||
       typeof email !== 'string' ||
       typeof password !== 'string' ||
-      username.trim().length === 0 ||
+      name.trim().length === 0 ||
       email.trim().length === 0 ||
       password.trim().length === 0
     ) {
