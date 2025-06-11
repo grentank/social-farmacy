@@ -1,11 +1,11 @@
 const UserValidator = require("../utils/User.validator");
 
-const generateToken = require("../utils/generateToken");
+const generateToken = require("../utils/ generateToken");
 
 const UserService = require("../services/User.service");
 const { formatResponse } = require("../utils/formatResponse");
 
-const cookieConfig = require("../configs/cookieConfig");
+const cookieConfig = require("../config/cookieConfig");
 
 const bcrypt = require("bcrypt");
 

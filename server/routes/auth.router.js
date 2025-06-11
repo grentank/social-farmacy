@@ -1,8 +1,8 @@
 const router = require("express").Router();
 
 const AuthController = require("../controllers/Auth.controller");
-const { checkBody } = require("../middlewares/checkBody");
-const verifyRefreshToken = require("../middlewares/verifyRefreshToken");
+const { checkBody } = require("../middleware/checkBody");
+const verifyRefreshToken = require("../middleware/verifyRefreshToken");
 
 router
   .post("/register", checkBody, AuthController.register)

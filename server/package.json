@@ -11,7 +11,7 @@
     "undosid": "npx sequelize db:seed:undo:all",
     "drop": "npx sequelize db:drop",
     "reset": "npx sequelize db:drop && npx sequelize db:create && npx sequelize db:migrate && npx sequelize db:seed:all",
-    "dev": "nodemon src/app.js"
+    "dev": "nodemon app.js"
   },
   "keywords": [],
   "author": "",
