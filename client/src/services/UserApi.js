@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const { VITE_TARGET, VITE_API } = import.meta.env
+const { VITE_TARGET } = import.meta.env
 
 import { axiosInstance } from '../shared/axiosInstance'
 
