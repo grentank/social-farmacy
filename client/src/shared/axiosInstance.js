@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const { VITE_TARGET, VITE_API } = import.meta.env
+const { VITE_TARGET } = import.meta.env
 
 // todo Создаём экземпляр axios
 export const axiosInstance = axios.create({
-  baseURL: `${VITE_TARGET}${VITE_API}`, // ? все запросы летят на /api
+  baseURL: `${VITE_TARGET}`, // ? все запросы летят на /api
   headers: { 'Content-Type': 'application/json' }, //? все запросы летят с указанием типа контента
   withCredentials: true // ! - все запросы принимают куки с сервера
 })
