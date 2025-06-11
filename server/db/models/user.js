@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
  admin: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false }
  }, {
  tableName: 'Users',
- timestamps: false
+ timestamps: true
  });
  User.associate = function(models) {
  User.hasMany(models.Bucket, { foreignKey: 'user_id' });
