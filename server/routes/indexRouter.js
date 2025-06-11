@@ -13,7 +13,7 @@ router.use('/product',routerProduct)
 router.use('/user', UserRouter)
 router.use('/bucket', backetRouter)
   
-//! Обработка всех запросов на несуществующие маршруты (меняем стандартный ответ от express)
+//! Обработка всех запросов на несуществующие маршруты (меняем стандартный ответ от express
 router.use((req, res) => {
   res.status(404).json(formatResponse(404, 'Not found'));
 });
