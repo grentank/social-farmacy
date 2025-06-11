@@ -1,0 +1,15 @@
+// src/routes/indexRouter.js
+const router = require('express').Router(); //* получаем экземпляр роутинга из библиотеки
+const postRouter = require('./postRouter'); //* подтягиваем набор роутинга по определенному пути
+const formatResponse = require('../utils/formatResponse'); //* подтягиваем утилиту для унификации ответа по 404
+const authRouter = require('./authRouter');
+
+router.use('/posts', postRouter); //* по пути на posts отрабатывает набор из postRouter
+router.use('/auth', authRouter);
+  
+//! Обработка всех запросов на несуществующие маршруты (меняем стандартный ответ от express)
+router.use((req, res) => {
+  res.status(404).json(formatResponse(404, 'Not found'));
+});
+
+module.exports = router;
