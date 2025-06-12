@@ -35,11 +35,13 @@ export default function ProductsAndSales() {
         const productIds = sales.map(sale => sale.product_id);
         const productPromises = productIds.map(id => ProductApi.getOne(id));
         const productsData = await Promise.all(productPromises);
-        // Объединяем данные о продукте и распродаже
+        
+        // ИСПРАВЛЕНИЕ: Сохраняем оригинальный id продукта
         const saleProductsWithDiscount = productsData.map((product, idx) => ({
           ...product,
-          ...sales[idx]
+          saleData: { ...sales[idx] }  // Данные распродажи в отдельном поле
         }));
+        
         setSaleProducts(saleProductsWithDiscount);
       } catch (error) {
         console.log(error);
@@ -164,7 +166,7 @@ export default function ProductsAndSales() {
         background: "none",
         paddingTop: 0,
         paddingBottom: 0,
-        marginBottom: 18 // уменьшенный отступ снизу
+        marginBottom: 18
       }}>
         {saleProducts.length === 0 && <div>Нет горячих предложений</div>}
         {saleProducts.map(product => (
@@ -180,7 +182,6 @@ export default function ProductsAndSales() {
               e.currentTarget.style.boxShadow = '0 4px 20px rgba(255,88,88,0.18)';
             }}
           >
-            {/* Бейдж скидки */}
             <div style={{
               position: 'absolute',
               top: 12,
@@ -204,7 +205,6 @@ export default function ProductsAndSales() {
             <p style={{ fontSize: 15, color: '#fff', margin: 0, marginBottom: 16, minHeight: 48 }}>
               {getProductTitle(product)}
             </p>
-            {/* Цена не показывается для горячих предложений */}
             <Button
               variant="light"
               style={{
@@ -213,6 +213,7 @@ export default function ProductsAndSales() {
                 marginTop: 14,
                 borderRadius: 10
               }}
+              // ИСПРАВЛЕНИЕ: Передаем корректный ID продукта
               onClick={() => handleAddToCart(product.id)}
             >
               В корзину
