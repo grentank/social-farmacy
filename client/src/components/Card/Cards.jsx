@@ -1,14 +1,16 @@
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 import Modal from "react-bootstrap/Modal";
 import Badge from "react-bootstrap/Badge";
 import { ProductApi } from "../../services/ProductApi";
+import { SaleApi } from "../../services/SaleApi";
 import { BucketApi } from "../../services/BucketApi";
 
-export default function Cards() {
+export default function ProductsAndSales() {
   const [products, setProducts] = useState([]);
+  const [saleProducts, setSaleProducts] = useState([]);
   const [hovered, setHovered] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -24,6 +26,34 @@ export default function Cards() {
     };
     getProducts();
   }, []);
+
+  useEffect(() => {
+    const getSaleProducts = async () => {
+      try {
+        const sales = await SaleApi.getAll();
+        const productIds = sales.map(sale => sale.product_id);
+        const productPromises = productIds.map(id => ProductApi.getOne(id));
+        const products = await Promise.all(productPromises);
+        const saleProductsWithDiscount = products.map((product, idx) => ({
+          ...product,
+          ...sales[idx]
+        }));
+        setSaleProducts(saleProductsWithDiscount);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getSaleProducts();
+  }, []);
+
+  const handleShowModal = (product) => {
+    setSelectedProduct(product);
+    setShowModal(true);
+  };
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedProduct(null);
+  };
 
   const containerStyle = {
     display: 'flex',
@@ -61,37 +91,136 @@ export default function Cards() {
     borderBottom: '2px solid #e9faf9'
   };
 
-  const priceStyle = {
-    fontWeight: 'bold',
-    color: '#10b26a',
-    fontSize: '1.1rem',
-    background: "#f2fffa",
-    border: 'none'
+  const saleCardStyle = {
+    width: 260,
+    background: 'linear-gradient(135deg, #ff5858 0%, #f09819 100%)',
+    borderRadius: 18,
+    boxShadow: '0 4px 20px rgba(255,88,88,0.18)',
+    color: '#fff',
+    padding: 20,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    position: 'relative',
+    transition: 'transform 0.15s, box-shadow 0.15s',
+    marginBottom: 20
   };
 
-  const stockStyle = {
-    fontSize: '0.93rem',
-    color: '#6c757d',
-    background: "#f9fdff",
-    border: 'none'
+  const saleImageStyle = {
+    width: '180px',
+    height: '120px',
+    objectFit: 'cover',
+    borderRadius: 10,
+    marginBottom: 16,
+    border: '2px solid #fff',
+    boxShadow: '0 2px 12px rgba(255,152,25,0.12)'
   };
 
-  // Открыть модалку с выбранным товаром
-  const handleShowModal = (product) => {
-    setSelectedProduct(product);
-    setShowModal(true);
-  };
-
-  // Закрыть модалку
-  const handleCloseModal = () => {
-    setShowModal(false);
-    setSelectedProduct(null);
-  };
+  const saleProductIds = new Set(saleProducts.map(p => p.id));
+  const filteredProducts = products.filter(p => !saleProductIds.has(p.id));
 
   return (
     <>
+      {/* Горячие предложения */}
+      <h2 style={{
+        marginTop: 16,
+        marginBottom: 8,
+        fontWeight: 800,
+        color: "#ff5858",
+        letterSpacing: 1,
+        textAlign: "center"
+      }}>
+        Горячие предложения
+      </h2>
+      <div style={{
+        ...containerStyle,
+        background: "none",
+        paddingTop: 0,
+        paddingBottom: 0,
+        marginBottom: 18 // уменьшенный отступ снизу
+      }}>
+        {saleProducts.length === 0 && <div>Нет горячих предложений</div>}
+        {saleProducts.map(product => (
+          <div
+            key={product.id}
+            style={saleCardStyle}
+            onMouseEnter={e => {
+              e.currentTarget.style.transform = 'scale(1.035)';
+              e.currentTarget.style.boxShadow = '0 8px 32px rgba(255,88,88,0.30)';
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.transform = '';
+              e.currentTarget.style.boxShadow = '0 4px 20px rgba(255,88,88,0.18)';
+            }}
+          >
+            {/* Бейдж скидки */}
+            <div style={{
+              position: 'absolute',
+              top: 12,
+              left: 12,
+              background: '#fff',
+              color: '#ff5858',
+              borderRadius: '7px',
+              padding: '4px 12px',
+              fontWeight: 700,
+              fontSize: 14,
+              boxShadow: '0 2px 8px rgba(0,0,0,0.08)'
+            }}>
+              HOT
+            </div>
+            <img
+              src={product.image || product.img || 'https://via.placeholder.com/180x120?text=No+Image'}
+              alt={product.name}
+              style={saleImageStyle}
+            />
+            <h3 style={{ margin: '0 0 8px 0', fontSize: 22, fontWeight: 700 }}>{product.name}</h3>
+            <p style={{ fontSize: 15, color: '#fff', margin: 0, marginBottom: 16, minHeight: 48 }}>
+              {product.description || product.title}
+            </p>
+            {/* Цена не показывается для горячих предложений */}
+            <Button
+              variant="light"
+              style={{
+                color: "#ff5858",
+                fontWeight: 700,
+                marginTop: 14,
+                borderRadius: 10
+              }}
+              onClick={() => BucketApi.addItem({ userId: 1, productId: product.id })}
+            >
+              В корзину
+            </Button>
+            <Button
+              variant="outline-light"
+              style={{
+                color: "#fff",
+                borderColor: "#fff",
+                fontWeight: 500,
+                marginTop: 8,
+                borderRadius: 10
+              }}
+              onClick={() => handleShowModal(product)}
+            >
+              Подробнее
+            </Button>
+          </div>
+        ))}
+      </div>
+
+      {/* Все товары */}
+      <h2 style={{
+        marginTop: 0,
+        marginBottom: 8,
+        fontWeight: 800,
+        color: "#11664a",
+        letterSpacing: 1,
+        textAlign: "center"
+      }}>
+        Все товары
+      </h2>
       <div style={containerStyle}>
-        {products.map((el) => (
+        {filteredProducts.length === 0 && <div>Нет товаров</div>}
+        {filteredProducts.map((el) => (
           <Card
             key={el.id}
             style={{
@@ -101,7 +230,7 @@ export default function Cards() {
             onMouseEnter={() => setHovered(el.id)}
             onMouseLeave={() => setHovered(null)}
           >
-            <Card.Img variant="top" src={el.img} style={imageStyle} alt={el.name} />
+            <Card.Img variant="top" src={el.img || el.image || 'https://via.placeholder.com/350x210?text=No+Image'} style={imageStyle} alt={el.name} />
             <Card.Body>
               <Card.Title style={{ fontWeight: 700, fontSize: "1.1rem", color: "#11664a" }}>
                 {el.name}
@@ -116,8 +245,10 @@ export default function Cards() {
               </Card.Text>
             </Card.Body>
             <ListGroup className="list-group-flush">
-              <ListGroup.Item style={priceStyle}>{el.price} ₽</ListGroup.Item>
-              <ListGroup.Item style={stockStyle}>В наличии: {el.stock} шт</ListGroup.Item>
+              <ListGroup.Item style={{ fontSize: '1rem', color: '#11664a', background: "#f9fdff", border: 'none', fontWeight: 600 }}>
+                Цена: <span style={{ color: "#09a96c" }}>{el.price} ₽</span>
+              </ListGroup.Item>
+              <ListGroup.Item style={{ fontSize: '0.93rem', color: '#6c757d', background: "#f9fdff", border: 'none' }}>В наличии: {el.stock} шт</ListGroup.Item>
             </ListGroup>
             <Card.Body className="d-flex justify-content-between" style={{ gap: 8 }}>
               <Button
@@ -174,7 +305,7 @@ export default function Cards() {
                 alignItems: "flex-start"
               }}>
                 <img
-                  src={selectedProduct.img}
+                  src={selectedProduct.img || selectedProduct.image || 'https://via.placeholder.com/260x260?text=No+Image'}
                   alt={selectedProduct.name}
                   style={{
                     width: 260,
@@ -197,8 +328,12 @@ export default function Cards() {
                     {selectedProduct.description || <span style={{ color: "#b1bfc7" }}>Подробное описание отсутствует.</span>}
                   </p>
                   <ListGroup className="mb-3">
-                    <ListGroup.Item style={priceStyle}>Цена: {selectedProduct.price} ₽</ListGroup.Item>
-                    <ListGroup.Item style={stockStyle}>В наличии: {selectedProduct.stock} шт</ListGroup.Item>
+                    <ListGroup.Item style={{ fontSize: '1rem', color: '#11664a', background: "#f9fdff", border: 'none', fontWeight: 600 }}>
+                      Цена: <span style={{ color: "#09a96c" }}>{selectedProduct.price} ₽</span>
+                    </ListGroup.Item>
+                    <ListGroup.Item style={{ fontSize: '0.93rem', color: '#6c757d', background: "#f9fdff", border: 'none' }}>
+                      В наличии: {selectedProduct.stock} шт
+                    </ListGroup.Item>
                   </ListGroup>
                   <div className="d-flex gap-2">
                     <Button variant="success"
