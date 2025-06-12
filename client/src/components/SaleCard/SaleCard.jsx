@@ -5,7 +5,7 @@ export default function SaleCard() {
 
     
     <div>
-      
+      1111
     </div>
   )
 }
