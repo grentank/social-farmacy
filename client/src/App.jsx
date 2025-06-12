@@ -4,10 +4,12 @@ import ProductPage from "./pages/ProductPage";
 import MainPage from "./pages/MainPage";
 import AuthPage from "./pages/AuthPage";
 import BucketPage from "./pages/BucketPage";
+import Header from "./layout/Header";
 
 function App() {
   return (
     <BrowserRouter>
+       <Header />
       <Routes>
         <Route path="/main" element={<MainPage />} />
         <Route path="/catalog" element={<ProductPage />} />
