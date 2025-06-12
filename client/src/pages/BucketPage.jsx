@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Правильный импорт Bootstrap
-import './BucketPage.css'; // Наши кастомные стили
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './BucketPage.css';
 
 const BucketPage = () => {
   const initialItems = [
@@ -11,7 +11,8 @@ const BucketPage = () => {
         name: "Лекарство",
         price: 45000,
         description: "Высокоэффективное средство для лечения"
-      }
+      },
+      quantity: 1
     },
     {
       id: 2,
@@ -20,7 +21,8 @@ const BucketPage = () => {
         name: "Костыли",
         price: 21000,
         description: "Алюминиевые регулируемые костыли"
-      }
+      },
+      quantity: 1
     },
     {
       id: 3,
@@ -28,15 +30,16 @@ const BucketPage = () => {
         id: 103,
         name: "Успокоительное",
         price: 1,
-        description: "Седатив"
-      }
+        description: "Седативное"
+      },
+      quantity: 1
     }
   ];
 
   const [bucketItems, setBucketItems] = useState(initialItems);
   
   const totalPrice = bucketItems.reduce(
-    (sum, item) => sum + item.Product.price, 
+    (sum, item) => sum + (item.Product.price * item.quantity), 
     0
   );
 
@@ -53,6 +56,32 @@ const BucketPage = () => {
   const handleCheckout = () => {
     alert(`Заказ на сумму ${totalPrice.toLocaleString()} руб. успешно оформлен!`);
     setBucketItems([]);
+  };
+
+  // Увеличить количество товара
+  const increaseQuantity = (id) => {
+    setBucketItems(bucketItems.map(item => 
+      item.id === id ? {...item, quantity: item.quantity + 1} : item
+    ));
+  };
+
+  // Уменьшить количество товара
+  const decreaseQuantity = (id) => {
+    setBucketItems(bucketItems.map(item => 
+      item.id === id && item.quantity > 1 
+        ? {...item, quantity: item.quantity - 1} 
+        : item
+    ));
+  };
+
+  // Обработчик изменения количества через инпут
+  const handleQuantityChange = (id, value) => {
+    const newQuantity = parseInt(value) || 1;
+    setBucketItems(bucketItems.map(item => 
+      item.id === id 
+        ? {...item, quantity: newQuantity > 0 ? newQuantity : 1} 
+        : item
+    ));
   };
 
   return (
@@ -80,12 +109,44 @@ const BucketPage = () => {
                       Цена: {item.Product.price.toLocaleString()} руб.
                     </p>
                   </div>
-                  <button 
-                    className="btn btn-outline-danger"
-                    onClick={() => handleRemoveItem(item.id)}
-                  >
-                    Удалить
-                  </button>
+                  <div className="d-flex flex-column align-items-end">
+                    <div className="d-flex align-items-center mb-2">
+                      <button 
+                        className="btn btn-outline-secondary btn-sm"
+                        onClick={() => decreaseQuantity(item.id)}
+                        disabled={item.quantity <= 1}
+                      >
+                        -
+                      </button>
+                      
+                      <input
+                        type="number"
+                        min="1"
+                        value={item.quantity}
+                        onChange={(e) => handleQuantityChange(item.id, e.target.value)}
+                        className="form-control mx-2 text-center"
+                        style={{ width: '60px' }}
+                      />
+                      
+                      <button 
+                        className="btn btn-outline-secondary btn-sm"
+                        onClick={() => increaseQuantity(item.id)}
+                      >
+                        +
+                      </button>
+                    </div>
+                    
+                    <p className="mb-2 fw-bold">
+                      Сумма: {(item.Product.price * item.quantity).toLocaleString()} руб.
+                    </p>
+                    
+                    <button 
+                      className="btn btn-outline-danger"
+                      onClick={() => handleRemoveItem(item.id)}
+                    >
+                      Удалить
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}
