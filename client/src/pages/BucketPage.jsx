@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './BucketPage.css';
+import { Link } from "react-router-dom";
 
 const BucketPage = () => {
   const initialItems = [
@@ -92,7 +93,7 @@ const BucketPage = () => {
         <div className="empty-cart">
           <h2>Ваша корзина пуста</h2>
           <p className="text-muted mb-3">Добавьте товары, чтобы сделать заказ</p>
-          <button className="btn btn-primary">Вернуться к покупкам</button>
+           <Link to="/catalog" className="btn btn-primary">Вернуться к покупкам</Link>
         </div>
       ) : (
         <div>
