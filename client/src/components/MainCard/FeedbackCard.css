@@ -1,0 +1,122 @@
+/* Основные стили контейнера */
+.feedback-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Arial', sans-serif;
+}
+
+.feedback-title {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #2c3e50;
+  font-size: 2rem;
+}
+
+/* Стили для кнопок переключения */
+.feedback-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.feedback-button {
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.feedback-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Стили для карточек отзывов */
+.feedback-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.feedback-card {
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+  border: none;
+}
+
+.feedback-card:hover {
+  transform: translateY(-5px);
+}
+
+.feedback-image {
+  height: 250px;
+  object-fit: cover;
+}
+
+.feedback-body {
+  padding: 20px;
+}
+
+.feedback-name {
+  font-size: 1.3rem;
+  margin-bottom: 15px;
+  color: #2c3e50;
+}
+
+.feedback-text {
+  color: #7f8c8d;
+  margin-bottom: 20px;
+  min-height: 60px;
+}
+
+.feedback-like-button {
+  border-radius: 50px;
+  padding: 8px 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #28a745;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.feedback-like-button:hover {
+  background-color: #218838;
+  transform: scale(1.05);
+}
+
+.feedback-disclaimer {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  color: #95a5a6;
+  font-style: italic;
+}
+
+/* Адаптация для мобильных устройств */
+@media (max-width: 768px) {
+  .feedback-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .feedback-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .feedback-button {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .feedback-image {
+    height: 200px;
+  }
+}
