@@ -4,12 +4,12 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { UserApi } from "../services/UserApi";
 import AuthButton from "../components/AuthButton/AuthButton";
+import { Navigate, useNavigate } from "react-router";
 
-export default function AuthPage() {
+export default function AuthPage({setCurrentUser, currentUser}) {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [isLogin, setIsLogin] = useState(true);
-  const [currentUser, setCurrentUser] = useState(null);
-
+  const navigate = useNavigate()
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -23,6 +23,7 @@ export default function AuthPage() {
 
       setCurrentUser(data.user || null);
       alert(data.message || "Успешно");
+      navigate('/main')
 
       // Очищаем инпуты
       setForm({ name: "", email: "", password: "" });
