@@ -3,6 +3,8 @@ import Carousel from 'react-bootstrap/Carousel';
 import ExampleCarouselImage1 from '../public/countryFeature.jpg';
 import ExampleCarouselImage2 from '../public/Help.jpg';
 import ExampleCarouselImage3 from '../public/vite.svg';
+import Vadim from '../public/vadim.jpg'
+import Alexander from '../public/alexander.jpg'
 
 
 
@@ -74,7 +76,12 @@ export default function MainCard() {
       <div> Миссия </div>
       <div> Контакты </div>
       <div> Данные организации </div>
-      <div> Информация о разработчиках </div> 
+      <div> 
+        <h3>Информация о разработчиках</h3>
+        <div>
+          <img src={Vadim} alt="Вадим Вильгельм" />
+        </div>
+        </div> 
       </>
   );
 }
