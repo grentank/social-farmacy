@@ -28,15 +28,15 @@ export default function ProductsAndSales() {
     getProducts();
   }, []);
 
-
   useEffect(() => {
     const getSaleProducts = async () => {
       try {
         const sales = await SaleApi.getAll();
         const productIds = sales.map(sale => sale.product_id);
         const productPromises = productIds.map(id => ProductApi.getOne(id));
-        const products = await Promise.all(productPromises);
-        const saleProductsWithDiscount = products.map((product, idx) => ({
+        const productsData = await Promise.all(productPromises);
+        // Объединяем данные о продукте и распродаже
+        const saleProductsWithDiscount = productsData.map((product, idx) => ({
           ...product,
           ...sales[idx]
         }));
@@ -52,22 +52,23 @@ export default function ProductsAndSales() {
     setSelectedProduct(product);
     setShowModal(true);
   };
+
   const handleCloseModal = () => {
     setShowModal(false);
     setSelectedProduct(null);
+  };
 
   const handleAddToCart = async (productId) => {
     try {
-      await BucketApi.addItem({ 
-        userId: currentUserId, 
-        productId 
+      await BucketApi.addItem({
+        userId: currentUserId,
+        productId
       });
-      alert(`Товар добавлен в корзину!`);
+      alert("Товар добавлен в корзину!");
     } catch (error) {
       console.error("Ошибка при добавлении в корзину:", error);
       alert("Не удалось добавить товар в корзину");
     }
-
   };
 
   const containerStyle = {
@@ -131,19 +132,19 @@ export default function ProductsAndSales() {
     boxShadow: '0 2px 12px rgba(255,152,25,0.12)'
   };
 
+  // Исключаем товары, которые участвуют в акции, из общего списка
   const saleProductIds = new Set(saleProducts.map(p => p.id));
   const filteredProducts = products.filter(p => !saleProductIds.has(p.id));
 
-  const handleShowModal = (product) => {
-    setSelectedProduct(product);
-    setShowModal(true);
-  };
+  // Универсальные функции для получения картинки и описания
+  const getProductImage = (product, size = '350x210') =>
+    product.img || product.image || `https://via.placeholder.com/${size}?text=No+Image`;
 
-  const handleCloseModal = () => {
-    setShowModal(false);
-    setSelectedProduct(null);
-  };
+  const getProductTitle = (product) =>
+    product.title || product.description || "Без описания";
 
+  const getProductDescription = (product) =>
+    product.description || product.title || <span style={{ color: "#b1bfc7" }}>Подробное описание отсутствует.</span>;
 
   return (
     <>
@@ -195,13 +196,13 @@ export default function ProductsAndSales() {
               HOT
             </div>
             <img
-              src={product.image || product.img || 'https://via.placeholder.com/180x120?text=No+Image'}
+              src={getProductImage(product, '180x120')}
               alt={product.name}
               style={saleImageStyle}
             />
             <h3 style={{ margin: '0 0 8px 0', fontSize: 22, fontWeight: 700 }}>{product.name}</h3>
             <p style={{ fontSize: 15, color: '#fff', margin: 0, marginBottom: 16, minHeight: 48 }}>
-              {product.description || product.title}
+              {getProductTitle(product)}
             </p>
             {/* Цена не показывается для горячих предложений */}
             <Button
@@ -212,7 +213,7 @@ export default function ProductsAndSales() {
                 marginTop: 14,
                 borderRadius: 10
               }}
-              onClick={() => BucketApi.addItem({ userId: 1, productId: product.id })}
+              onClick={() => handleAddToCart(product.id)}
             >
               В корзину
             </Button>
@@ -256,7 +257,7 @@ export default function ProductsAndSales() {
             onMouseEnter={() => setHovered(el.id)}
             onMouseLeave={() => setHovered(null)}
           >
-            <Card.Img variant="top" src={el.img || el.image || 'https://via.placeholder.com/350x210?text=No+Image'} style={imageStyle} alt={el.name} />
+            <Card.Img variant="top" src={getProductImage(el)} style={imageStyle} alt={el.name} />
             <Card.Body>
               <Card.Title style={{ fontWeight: 700, fontSize: "1.1rem", color: "#11664a" }}>
                 {el.name}
@@ -267,12 +268,12 @@ export default function ProductsAndSales() {
                 )}
               </Card.Title>
               <Card.Text style={{ color: "#7a8997", fontSize: "0.97rem", minHeight: 46 }}>
-                {el.title}
+                {getProductTitle(el)}
               </Card.Text>
             </Card.Body>
             <ListGroup className="list-group-flush">
               <ListGroup.Item style={{ fontSize: '1rem', color: '#11664a', background: "#f9fdff", border: 'none', fontWeight: 600 }}>
-                Цена: <span style={{ color: "#09a96c" }}>{el.price} ₽</span>
+                Цена: <span style={{ color: "#09a96c" }}>{el.price} </span>
               </ListGroup.Item>
               <ListGroup.Item style={{ fontSize: '0.93rem', color: '#6c757d', background: "#f9fdff", border: 'none' }}>В наличии: {el.stock} шт</ListGroup.Item>
             </ListGroup>
@@ -330,7 +331,7 @@ export default function ProductsAndSales() {
                 alignItems: "flex-start"
               }}>
                 <img
-                  src={selectedProduct.img || selectedProduct.image || 'https://via.placeholder.com/260x260?text=No+Image'}
+                  src={getProductImage(selectedProduct, '260x260')}
                   alt={selectedProduct.name}
                   style={{
                     width: 260,
@@ -347,21 +348,21 @@ export default function ProductsAndSales() {
                     marginBottom: 12,
                     color: "#11664a"
                   }}>
-                    {selectedProduct.title}
+                    {getProductTitle(selectedProduct)}
                   </h5>
                   <p style={{ color: "#5c6f7c", minHeight: 60 }}>
-                    {selectedProduct.description || <span style={{ color: "#b1bfc7" }}>Подробное описание отсутствует.</span>}
+                    {getProductDescription(selectedProduct)}
                   </p>
                   <ListGroup className="mb-3">
                     <ListGroup.Item style={{ fontSize: '1rem', color: '#11664a', background: "#f9fdff", border: 'none', fontWeight: 600 }}>
-                      Цена: <span style={{ color: "#09a96c" }}>{selectedProduct.price} ₽</span>
+                      Цена: <span style={{ color: "#09a96c" }}>{selectedProduct.price} </span>
                     </ListGroup.Item>
                     <ListGroup.Item style={{ fontSize: '0.93rem', color: '#6c757d', background: "#f9fdff", border: 'none' }}>
                       В наличии: {selectedProduct.stock} шт
                     </ListGroup.Item>
                   </ListGroup>
                   <div className="d-flex gap-2">
-                    <Button 
+                    <Button
                       variant="success"
                       style={{ fontWeight: 600, borderRadius: 12 }}
                       onClick={() => handleAddToCart(selectedProduct.id)}
