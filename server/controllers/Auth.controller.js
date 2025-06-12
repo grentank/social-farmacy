@@ -39,8 +39,8 @@ class AuthController {
           res.status(400).json(
             formatResponse({
               statusCode: 400,
-              message: "Пользователь с такой почтой уже зарегистрирован",
-              error: "Пользователь с такой почтой уже зарегистрирован",
+              message: `Пользователь с почтой ${email} уже зарегистрирован`,
+              error: `Пользователь с почтой ${email} уже зарегистрирован`,
             })
           );
         } else {
@@ -90,8 +90,8 @@ class AuthController {
         res.status(400).json(
           formatResponse({
             statusCode: 400,
-            message: "Пользователь с такой почтой не найден",
-            error: "Пользователь с такой почтой не найден",
+            message: `Пользователь с почтой ${email} не найден`,
+            error: `Пользователь с почтой ${email} не найден`,
           })
         );
       } else {
