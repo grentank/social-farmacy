@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import ListGroup from "react-bootstrap/ListGroup";
 import Modal from "react-bootstrap/Modal";
 import { ProductApi } from "../../services/ProductApi";
+import { BucketApi } from "../../services/BucketApi";
 
 export default function Cards() {
   const [products, setProducts] = useState([]);
@@ -103,7 +104,7 @@ export default function Cards() {
               <ListGroup.Item style={stockStyle}>В наличии: {el.stock} шт</ListGroup.Item>
             </ListGroup>
             <Card.Body className="d-flex justify-content-between" style={{gap: 8}}>
-              <Button variant="success" style={{ flex: 1 }}>В корзину</Button>
+              <Button variant="success" style={{ flex: 1 }} onClick={(e)=>{BucketApi.addItem({userId:1,productId:el.id})}}>В корзину</Button>
               <Button 
                 variant="outline-info" 
                 style={{ flex: 1 }} 
@@ -141,7 +142,7 @@ export default function Cards() {
                     <ListGroup.Item style={stockStyle}>В наличии: {selectedProduct.stock} шт</ListGroup.Item>
                   </ListGroup>
                   <div className="d-flex gap-2">
-                    <Button variant="success">В корзину</Button>
+                    <Button variant="success" >В корзину</Button>
                     <Button variant="outline-secondary" onClick={handleCloseModal}>Закрыть</Button>
                   </div>
                 </div>
