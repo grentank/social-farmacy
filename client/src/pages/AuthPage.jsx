@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import { UserApi } from "../services/UserApi";
 import AuthButton from "../components/AuthButton/AuthButton";
 import { Navigate, useNavigate } from "react-router";
-
+import "./AuthPage.css";
 export default function AuthPage({setCurrentUser, currentUser}) {
   const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [isLogin, setIsLogin] = useState(true);
@@ -18,10 +18,9 @@ export default function AuthPage({setCurrentUser, currentUser}) {
     e.preventDefault();
     try {
       const data = isLogin
-        ? await UserApi.login(form)
-        : await UserApi.register(form);
-
-      setCurrentUser(data.user || null);
+      ? await UserApi.login(form)
+      : await UserApi.register(form);
+      setCurrentUser(data.data.user || null);
       alert(data.message || "Успешно");
       // console.log({data});
       // Очищаем инпуты
@@ -42,26 +41,26 @@ export default function AuthPage({setCurrentUser, currentUser}) {
     }
   };
 
-  const backgroundStyle = {
-    backgroundImage: "url('https://png.pngtree.com/thumb_back/fh260/background/20240720/pngtree-tablets-in-bulk-are-multicolored-on-a-blue-background-the-concept-image_15902349.jpg')",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    backgroundRepeat: "no-repeat",
-    minHeight: "55vh",
-    padding: "20px"
-  };
+  // const backgroundStyle = {
+  //   backgroundImage: "url('https://png.pngtree.com/thumb_back/fh260/background/20240720/pngtree-tablets-in-bulk-are-multicolored-on-a-blue-background-the-concept-image_15902349.jpg')",
+  //   backgroundSize: "cover",
+  //   backgroundPosition: "center",
+  //   backgroundRepeat: "no-repeat",
+  //   minHeight: "55vh",
+  //   padding: "20px"
+  // };
 
-  const formStyle = {
-    backgroundColor: "rgba(255, 255, 255, 0.9)",
-    padding: "20px",
-    borderRadius: "10px",
-    maxWidth: "400px",
-    margin: "0 auto"
-  };
+  // const formStyle = {
+  //   backgroundColor: "rgba(255, 255, 255, 0.9)",
+  //   padding: "20px",
+  //   borderRadius: "10px",
+  //   maxWidth: "400px",
+  //   margin: "0 auto"
+  // };
 
   return (
-    <div style={backgroundStyle}>
-      <div style={formStyle}>
+   <div className="auth-bg">
+  <div className="auth-form-wrap">
         <h2>{isLogin ? "Вход" : "Регистрация"}</h2>
         <Form onSubmit={handleSubmit}>
           {!isLogin && (

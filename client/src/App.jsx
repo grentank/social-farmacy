@@ -13,12 +13,13 @@ function App() {
 
   useCanvasCursor();
 
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState({});
+  console.log("🚀 ~ App ~ currentUser:", currentUser)
 
 
   return (
     <BrowserRouter>
-      <Header />
+      <Header  currentUser={currentUser}  setCurrentUser={setCurrentUser}/>
       <Routes>
         <Route path="/main" element={<MainPage />} />
         <Route path="/catalog" element={<ProductPage />} />

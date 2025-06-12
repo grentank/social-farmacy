@@ -1,0 +1,109 @@
+/* AuthPage.css */
+.auth-bg {
+  background: linear-gradient(110deg, #f6fffa 0%, #e9f9ff 100%);
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+.auth-form-wrap {
+  background: rgba(255,255,255,0.95);
+  border-radius: 18px;
+  box-shadow: 0 8px 38px 0 #b6f6e855, 0 1.5px 8px #e0f7f7;
+  max-width: 420px;
+  width: 100%;
+  padding: 42px 32px 30px 32px;
+  margin: 0 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.auth-form-wrap h2 {
+  font-weight: 700;
+  color: #10b26a;
+  margin-bottom: 24px;
+  letter-spacing: .5px;
+}
+
+.auth-form-wrap form {
+  width: 100%;
+}
+
+.auth-form-wrap .form-control {
+  border-radius: 8px;
+  border-color: #a7ffe5;
+  font-size: 1.06rem;
+  padding: 10px 12px;
+  background: #fafffb;
+  box-shadow: 0 1px 0 #dffbf0;
+  margin-bottom: 12px;
+}
+
+.auth-form-wrap .form-control:focus {
+  border-color: #10b26a;
+  box-shadow: 0 0 0 2px #b7ffe6a0;
+}
+
+.auth-form-wrap .btn-success,
+.auth-form-wrap .btn-primary {
+  background: linear-gradient(90deg, #10b26a 80%, #30e6b5 100%);
+  border: none;
+  font-weight: 600;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  box-shadow: 0 2px 12px #b8fbe7aa;
+  transition: background .16s, box-shadow .16s;
+}
+
+.auth-form-wrap .btn-success:hover,
+.auth-form-wrap .btn-primary:hover {
+  background: linear-gradient(90deg, #16d17e 80%, #13f3b7 100%);
+  box-shadow: 0 4px 22px #b8fbe7ee;
+}
+
+.auth-form-wrap .btn-link {
+  color: #10b26a;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color .16s;
+  font-size: 1rem;
+  padding: 0;
+  margin-top: 12px;
+}
+.auth-form-wrap .btn-link:hover {
+  color: #13d390;
+  text-decoration: underline;
+}
+
+.auth-form-wrap p {
+  color: #11664a;
+  margin-top: 18px;
+  margin-bottom: 12px;
+  font-size: 1.06rem;
+}
+
+.auth-form-wrap .btn-danger {
+  border-radius: 10px;
+  font-weight: 600;
+  margin-top: 4px;
+  background: #ffefef;
+  color: #e34c55;
+  border: 1.5px solid #f1b7b7;
+  transition: background .12s, color .16s;
+}
+.auth-form-wrap .btn-danger:hover {
+  background: #ffd2d2;
+  color: #a82222;
+  border-color: #f37a7a;
+}
+
+/* Адаптив */
+@media (max-width: 600px) {
+  .auth-form-wrap {
+    padding: 28px 7vw 18px 7vw;
+    max-width: 99vw;
+  }
+}
