@@ -1,8 +1,8 @@
 export class UserValidator {
 
-  static validateMail(mail) {
+  static validateMail(email) {
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return emailPattern.test(mail)
+    return emailPattern.test(email)
   }
 
   static validatePassword(password) {
@@ -22,10 +22,10 @@ export class UserValidator {
     }
   }
 
-  static validate({ login, mail, password }) {
-    if (!login || !mail || !password ||
-        typeof login !== 'string' || typeof mail !== 'string' || typeof password !== 'string' ||
-        login.trim().length === 0 || mail.trim().length === 0 || password.trim().length === 0
+  static validate({ name, email, password }) {
+    if (!name || !email || !password ||
+        typeof name !== 'string' || typeof email !== 'string' || typeof password !== 'string' ||
+        name.trim().length === 0 || email.trim().length === 0 || password.trim().length === 0
     ) {
       return { isValid: false, error: 'Создание пользователя с такими полями не доступно' }
     }
