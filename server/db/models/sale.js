@@ -17,5 +17,3 @@ module.exports = (sequelize, DataTypes) => {
  return Sale;
 };
 
-On branch server
-Your branch is up to date with 'origin/server'.
