@@ -1,13 +1,16 @@
 import React from 'react'
-import MainCard from '../components/MainCard'
+import MainCard from '../components/MainCard/MainCard'
+import FeedbackCard from '../components/MainCard/FeedbackCard'
+
+
 
 export default function MainPage() {
   return (
       <>
-    <h1>
+    <div>
       <MainCard/>
-    </h1>
-
+      <FeedbackCard/>
+    </div>
     </>
   )
 }

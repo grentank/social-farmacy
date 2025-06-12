@@ -1,13 +1,8 @@
 
 import Carousel from 'react-bootstrap/Carousel';
-import ExampleCarouselImage1 from '../public/countryFeature.jpg';
-import ExampleCarouselImage2 from '../public/Help.jpg';
-import ExampleCarouselImage3 from '../public/vite.svg';
-
-import Vadim from '../public/vadim.jpg'
-import Alexander from '../public/alexander.jpg'
-
-
+import ExampleCarouselImage1 from '../../public/countryFeature.jpg';
+import ExampleCarouselImage2 from '../../public/Help.jpg'
+import ExampleCarouselImage3 from '../../public/vite.svg'
 
 
 export default function MainCard() {
@@ -20,7 +15,6 @@ export default function MainCard() {
     <Carousel>
       <Carousel.Item>
               <img
-              
               className="d-block w-100"
               src={ExampleCarouselImage1}
               alt="First slide"
@@ -80,9 +74,6 @@ export default function MainCard() {
       <div> Данные организации </div>
       <div> 
         <h3>Информация о разработчиках</h3>
-        <div>
-          <img src={Vadim} alt="Вадим Вильгельм" />
-        </div>
         </div> 
       </>
   );
