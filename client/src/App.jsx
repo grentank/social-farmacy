@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ProductPage from "./pages/ProductPage";
 import MainPage from "./pages/MainPage";
@@ -8,8 +8,14 @@ import Header from "./layout/Header";
 import useCanvasCursor from "./components/TrailingCursor/TrailingCursor";
 import Footer from "./layout/Footer";
 
+
 function App() {
+
   useCanvasCursor();
+
+  const [currentUser, setCurrentUser] = useState(null);
+
+
   return (
     <BrowserRouter>
       <Header />
@@ -17,7 +23,7 @@ function App() {
         <Route path="/main" element={<MainPage />} />
         <Route path="/catalog" element={<ProductPage />} />
         <Route path="/login" element={<AuthPage />} />
-        <Route path="/register" element={<AuthPage />} />
+        <Route path="/register" element={<AuthPage setCurrentUser={setCurrentUser} currentUser={currentUser} />} />
         <Route path="/bucket" element={<BucketPage />} />
       </Routes>
       <canvas

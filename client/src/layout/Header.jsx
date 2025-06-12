@@ -9,7 +9,11 @@ export default function Header() {
     color: isActive ? "#10b26a" : "#206259",
     fontWeight: isActive ? 700 : 500,
     textDecoration: "none",
+
     marginRight: 16,
+
+    marginLeft: 80,
+
     fontSize: 17,
     padding: "6px 14px",
     borderRadius: 8,
