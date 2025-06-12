@@ -5,6 +5,7 @@ const formatResponse = require('../utils/formatResponse'); //* подтягив�
 const authRouter = require('./auth.router');
 const backetRouter = require('./bucketRouter');
 const routerProduct = require('./ProductRouter');
+const SaleRouter = require('./saleRouter');
 const UserRouter = require('./user.router');
 
 
@@ -12,6 +13,7 @@ router.use('/auth', authRouter);
 router.use('/product',routerProduct)
 router.use('/user', UserRouter)
 router.use('/bucket', backetRouter)
+router.use('/sale', SaleRouter)
   
 //! Обработка всех запросов на несуществующие маршруты (меняем стандартный ответ от express
 router.use((req, res) => {
