@@ -6,16 +6,11 @@ import FeedbackCard from '../components/MainCard/FeedbackCard'
 
 export default function MainPage() {
   return (
-
-      <>
+     <>
     <div>
       <MainCard/>
       <FeedbackCard/>
     </div>
-
-    
-      <MainCard/>
-
     </>
   )
 }
