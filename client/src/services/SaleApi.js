@@ -5,8 +5,9 @@
  export class SaleApi{
 
     static async getAll() {
-        const { data } = await axiosInstance.get("/sale");
-        return data
+        const  {data}  = await axiosInstance.get("/sale");
+        console.log("🚀 ~ SaleA111111111pi ~ getAll ~ data:", data)
+        return data.data
     }
 
     static async getOne(id) {

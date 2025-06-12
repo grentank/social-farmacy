@@ -1,0 +1,206 @@
+/* Основные стили контейнера в стиле аптеки */
+.feedback-container {
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: linear-gradient(100deg, #f5fffb 0%, #e4fcfd 100%);
+  min-height: calc(100vh - 120px);
+}
+
+.feedback-title {
+  text-align: center;
+  margin-bottom: 40px;
+  color: #11664a;
+  font-size: 2rem;
+  font-weight: 700;
+  position: relative;
+}
+
+.feedback-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #10b26a, #0d6efd);
+  border-radius: 3px;
+}
+
+/* Стили для кнопок переключения */
+.feedback-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.feedback-button {
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: all 0.2s;
+  background: #e9f9f3;
+  color: #11664a;
+  border: none;
+  cursor: pointer;
+}
+
+.feedback-button.active {
+  background: #10b26a;
+  color: white;
+  box-shadow: 0 2px 8px rgba(16, 178, 106, 0.3);
+}
+
+.feedback-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 178, 106, 0.15);
+}
+
+/* Стили для карточек отзывов */
+.feedback-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+  display: flex;
+ 
+}
+
+.feedback-card {
+  border-radius: 20px;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.12);
+  border: none;
+  transition: transform 0.18s, box-shadow 0.18s;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+}
+
+.feedback-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 36px 0 rgba(31, 38, 135, 0.18);
+}
+
+.feedback-image {
+  height: 200px;
+  object-fit: cover;
+  width: 100%;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  border-bottom: 2px solid #e9faf9;
+}
+
+.feedback-body {
+  padding: 20px;
+}
+
+.feedback-name {
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #11664a;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.feedback-name::before {
+  content: '✚';
+  color: #10b26a;
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+.feedback-text {
+  color: #5c6f7c;
+  font-size: 0.95rem;
+  min-height: 60px;
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.feedback-rating {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 15px;
+}
+
+.feedback-rating i {
+  color: #ffc107;
+  font-size: 1.1rem;
+}
+
+.feedback-date {
+  font-size: 0.8rem;
+  color: #adb5bd;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+}
+
+.feedback-date::before {
+  content: '📅';
+  margin-right: 5px;
+}
+
+.feedback-like-button {
+  border-radius: 12px;
+  padding: 8px 16px;
+  font-weight: 600;
+  background: #10b26a;
+  color: white;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.feedback-like-button:hover {
+  background: #0d8b4f;
+  transform: scale(1.03);
+  box-shadow: 0 3px 10px rgba(16, 178, 106, 0.3);
+}
+
+.feedback-disclaimer {
+  text-align: center;
+  color: #6c757d;
+  font-style: italic;
+  font-size: 0.9rem;
+  margin-top: 30px;
+  padding: 15px;
+  background: #e9ecef;
+  border-radius: 12px;
+}
+
+/* Адаптация для мобильных устройств */
+@media (max-width: 768px) {
+  .feedback-container {
+    padding: 20px;
+  }
+  
+  .feedback-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .feedback-buttons {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  
+  .feedback-button {
+    width: 100%;
+  }
+  
+  .feedback-image {
+    height: 180px;
+  }
+  
+  .feedback-title {
+    font-size: 1.8rem;
+  }
+}
