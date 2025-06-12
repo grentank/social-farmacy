@@ -2,7 +2,7 @@ import { Navbar, Nav, Button, Container, Badge } from "react-bootstrap";
 import { NavLink, useLocation } from "react-router-dom";
 import { FaShoppingCart, FaCapsules, FaHeartbeat, FaCode } from "react-icons/fa";
 
-export default function Header() {
+export default function Header( {currentUser}) {
   const location = useLocation();
 
   const navLinkStyle = ({ isActive }) => ({
@@ -90,23 +90,57 @@ export default function Header() {
               Корзина <Badge pill bg="success" style={{ marginLeft: 5, fontSize: 12 }}>IT</Badge>
             </NavLink>
           </Nav>
-          <Nav className="ms-auto align-items-center" style={{ gap: 8 }}>
-            <NavLink to="/login" style={navLinkStyle}>
-              <Button
-                variant={location.pathname === "/login" ? "success" : "outline-success"}
-                size="sm"
-                style={{
-                  fontWeight: 600,
-                  letterSpacing: "0.5px",
-                  borderRadius: 7,
-                  borderWidth: 2
-                }}
-              >
-                <FaHeartbeat style={{ marginRight: 4, color: "#00d375" }} />
-                Войти
-              </Button>
-            </NavLink>
-          </Nav>
+          {currentUser ? (
+  <Nav className="ms-auto align-items-center" style={{ gap: 8 }}>
+    <Button
+      variant="outline-success"
+      size="sm"
+      style={{
+        fontWeight: 600,
+        letterSpacing: "0.5px",
+        borderRadius: 7,
+        borderWidth: 2,
+        display: "flex",
+        alignItems: "center",
+        gap: 7,
+        background: "#e6fff5",
+        color: "#10b26a",
+        boxShadow: "0 1px 8px #b7ffe533"
+      }}
+      // onClick={handleLogout} // <-- добавь свою функцию выхода
+      title="Выйти"
+    >
+      <FaHeartbeat style={{ color: "#00d375", fontSize: 18 }} />
+      {currentUser.name || currentUser.email}
+      <span style={{
+        marginLeft: 8,
+        color: "#e34c55",
+        fontWeight: 700,
+        fontSize: 18,
+        cursor: "pointer"
+      }}>⎋</span>
+    </Button>
+  </Nav>
+) : (
+  <Nav className="ms-auto align-items-center" style={{ gap: 8 }}>
+    <NavLink to="/login" style={navLinkStyle}>
+      <Button
+        variant={location.pathname === "/login" ? "success" : "outline-success"}
+        size="sm"
+        style={{
+          fontWeight: 600,
+          letterSpacing: "0.5px",
+          borderRadius: 7,
+          borderWidth: 2
+        }}
+      >
+        <FaHeartbeat style={{ marginRight: 4, color: "#00d375" }} />
+        Войти
+      </Button>
+    </NavLink>
+  </Nav>
+)}
+
         </Navbar.Collapse>
       </Container>
     </Navbar>

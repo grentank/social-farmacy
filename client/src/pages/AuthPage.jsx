@@ -18,10 +18,9 @@ export default function AuthPage({setCurrentUser, currentUser}) {
     e.preventDefault();
     try {
       const data = isLogin
-        ? await UserApi.login(form)
-        : await UserApi.register(form);
-
-      setCurrentUser(data.user || null);
+      ? await UserApi.login(form)
+      : await UserApi.register(form);
+      setCurrentUser(data.data.user || null);
       alert(data.message || "Успешно");
       // console.log({data});
       // Очищаем инпуты
