@@ -5,7 +5,7 @@ const SaleService = require("../services/SaleService");
 class SaleController {
   static async getAll(req, res) {
     try {
-      const result = await SaleService.getAllSale;
+      const result = await SaleService.getAllSale();
       res.status(201).json(
         formatResponse({
           statusCode: 201,
