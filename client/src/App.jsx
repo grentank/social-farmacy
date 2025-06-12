@@ -5,14 +5,20 @@ import MainPage from "./pages/MainPage";
 import AuthPage from "./pages/AuthPage";
 import BucketPage from "./pages/BucketPage";
 import Header from "./layout/Header";
+import useCanvasCursor from "./components/TrailingCursor/TrailingCursor";
+import Footer from "./layout/Footer";
 
 
 function App() {
+
+  useCanvasCursor();
+
   const [currentUser, setCurrentUser] = useState(null);
-  console.log(currentUser);
+
+
   return (
     <BrowserRouter>
-       <Header />
+      <Header />
       <Routes>
         <Route path="/main" element={<MainPage />} />
         <Route path="/catalog" element={<ProductPage />} />
@@ -20,6 +26,17 @@ function App() {
         <Route path="/register" element={<AuthPage setCurrentUser={setCurrentUser} currentUser={currentUser} />} />
         <Route path="/bucket" element={<BucketPage />} />
       </Routes>
+      <canvas
+        id="canvas"
+        style={{
+          position: "fixed",
+          left: 0,
+          top: 0,
+          pointerEvents: "none",
+          zIndex: 9999,
+        }}
+      />
+      <Footer />
     </BrowserRouter>
   );
 }
