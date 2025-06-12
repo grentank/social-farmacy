@@ -14,6 +14,7 @@ export default function ProductsAndSales() {
   const [hovered, setHovered] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const currentUserId = 1; // В реальном приложении брать из контекста/авторизации
 
   useEffect(() => {
     const getProducts = async () => {
@@ -26,6 +27,7 @@ export default function ProductsAndSales() {
     };
     getProducts();
   }, []);
+
 
   useEffect(() => {
     const getSaleProducts = async () => {
@@ -53,6 +55,19 @@ export default function ProductsAndSales() {
   const handleCloseModal = () => {
     setShowModal(false);
     setSelectedProduct(null);
+
+  const handleAddToCart = async (productId) => {
+    try {
+      await BucketApi.addItem({ 
+        userId: currentUserId, 
+        productId 
+      });
+      alert(`Товар добавлен в корзину!`);
+    } catch (error) {
+      console.error("Ошибка при добавлении в корзину:", error);
+      alert("Не удалось добавить товар в корзину");
+    }
+
   };
 
   const containerStyle = {
@@ -118,6 +133,17 @@ export default function ProductsAndSales() {
 
   const saleProductIds = new Set(saleProducts.map(p => p.id));
   const filteredProducts = products.filter(p => !saleProductIds.has(p.id));
+
+  const handleShowModal = (product) => {
+    setSelectedProduct(product);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setSelectedProduct(null);
+  };
+
 
   return (
     <>
@@ -261,7 +287,7 @@ export default function ProductsAndSales() {
                   boxShadow: "0 2px 8px #eafff2",
                   transition: "background .16s"
                 }}
-                onClick={() => BucketApi.addItem({ userId: 1, productId: el.id })}
+                onClick={() => handleAddToCart(el.id)}
               >
                 В корзину
               </Button>
@@ -282,7 +308,6 @@ export default function ProductsAndSales() {
         ))}
       </div>
 
-      {/* Модальное окно с подробным описанием */}
       <Modal
         show={showModal}
         onHide={handleCloseModal}
@@ -336,13 +361,16 @@ export default function ProductsAndSales() {
                     </ListGroup.Item>
                   </ListGroup>
                   <div className="d-flex gap-2">
-                    <Button variant="success"
+                    <Button 
+                      variant="success"
                       style={{ fontWeight: 600, borderRadius: 12 }}
-                      onClick={() => BucketApi.addItem({ userId: 1, productId: selectedProduct.id })}
+                      onClick={() => handleAddToCart(selectedProduct.id)}
                     >
                       В корзину
                     </Button>
-                    <Button variant="outline-secondary" style={{ borderRadius: 12 }} onClick={handleCloseModal}>Закрыть</Button>
+                    <Button variant="outline-secondary" style={{ borderRadius: 12 }} onClick={handleCloseModal}>
+                      Закрыть
+                    </Button>
                   </div>
                 </div>
               </div>

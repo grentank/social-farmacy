@@ -1,89 +1,102 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './BucketPage.css';
 import { Link } from "react-router-dom";
+import { BucketApi } from "../services/BucketApi";
 
 const BucketPage = () => {
-  const initialItems = [
-    {
-      id: 1,
-      Product: {
-        id: 101,
-        name: "Лекарство",
-        price: 45000,
-        description: "Высокоэффективное средство для лечения"
-      },
-      quantity: 1
-    },
-    {
-      id: 2,
-      Product: {
-        id: 102,
-        name: "Костыли",
-        price: 21000,
-        description: "Алюминиевые регулируемые костыли"
-      },
-      quantity: 1
-    },
-    {
-      id: 3,
-      Product: {
-        id: 103,
-        name: "Успокоительное",
-        price: 1,
-        description: "Седативное"
-      },
-      quantity: 1
-    }
-  ];
+  const [bucketItems, setBucketItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const currentUserId = 1; // В реальном приложении брать из контекста/авторизации
 
-  const [bucketItems, setBucketItems] = useState(initialItems);
-  
+  useEffect(() => {
+    const fetchBucket = async () => {
+      try {
+        const data = await BucketApi.getUserBucket(currentUserId);
+        setBucketItems(data);
+        setLoading(false);
+      } catch (err) {
+        console.error("Ошибка загрузки корзины:", err);
+        setError("Не удалось загрузить корзину");
+        setLoading(false);
+      }
+    };
+    
+    fetchBucket();
+  }, []);
+
+  const handleRemoveItem = async (itemId) => {
+    try {
+      await BucketApi.delete(itemId);
+      setBucketItems(bucketItems.filter(item => item.id !== itemId));
+    } catch (err) {
+      console.error("Ошибка удаления товара:", err);
+      alert("Не удалось удалить товар из корзины");
+    }
+  };
+
+  const handleClearCart = async () => {
+    if (!window.confirm("Вы действительно хотите очистить корзину?")) return;
+    
+    try {
+      await BucketApi.deleteAll(currentUserId);
+      setBucketItems([]);
+    } catch (err) {
+      console.error("Ошибка очистки корзины:", err);
+      alert("Не удалось очистить корзину");
+    }
+  };
+
+  const handleCheckout = async () => {
+    if (bucketItems.length === 0) {
+      alert("Корзина пуста!");
+      return;
+    }
+    
+    try {
+      // В вашем API нет метода оформления заказа, 
+      // поэтому просто очищаем корзину после подтверждения
+      await BucketApi.deleteAll(currentUserId);
+      setBucketItems([]);
+      alert(`Заказ на сумму ${totalPrice.toLocaleString()} руб. успешно оформлен!`);
+    } catch (err) {
+      console.error("Ошибка оформления заказа:", err);
+      alert("Не удалось оформить заказ");
+    }
+  };
+
   const totalPrice = bucketItems.reduce(
     (sum, item) => sum + (item.Product.price * item.quantity), 
     0
   );
 
-  const handleRemoveItem = (id) => {
-    setBucketItems(bucketItems.filter(item => item.id !== id));
-  };
+  if (loading) {
+    return (
+      <div className="bucket-container">
+        <div className="text-center p-5">
+          <h2>Загрузка корзины...</h2>
+          <div className="spinner-border text-primary mt-3" role="status"></div>
+        </div>
+      </div>
+    );
+  }
 
-  const handleClearCart = () => {
-    if (window.confirm("Вы действительно хотите очистить корзину?")) {
-      setBucketItems([]);
-    }
-  };
-
-  const handleCheckout = () => {
-    alert(`Заказ на сумму ${totalPrice.toLocaleString()} руб. успешно оформлен!`);
-    setBucketItems([]);
-  };
-
-  // Увеличить количество товара
-  const increaseQuantity = (id) => {
-    setBucketItems(bucketItems.map(item => 
-      item.id === id ? {...item, quantity: item.quantity + 1} : item
-    ));
-  };
-
-  // Уменьшить количество товара
-  const decreaseQuantity = (id) => {
-    setBucketItems(bucketItems.map(item => 
-      item.id === id && item.quantity > 1 
-        ? {...item, quantity: item.quantity - 1} 
-        : item
-    ));
-  };
-
-  // Обработчик изменения количества через инпут
-  const handleQuantityChange = (id, value) => {
-    const newQuantity = parseInt(value) || 1;
-    setBucketItems(bucketItems.map(item => 
-      item.id === id 
-        ? {...item, quantity: newQuantity > 0 ? newQuantity : 1} 
-        : item
-    ));
-  };
+  if (error) {
+    return (
+      <div className="bucket-container">
+        <div className="alert alert-danger text-center">
+          <h2>{error}</h2>
+          <button 
+            className="btn btn-primary mt-3"
+            onClick={() => window.location.reload()}
+          >
+            Повторить попытку
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bucket-container">
@@ -93,7 +106,9 @@ const BucketPage = () => {
         <div className="empty-cart">
           <h2>Ваша корзина пуста</h2>
           <p className="text-muted mb-3">Добавьте товары, чтобы сделать заказ</p>
-           <Link to="/catalog" className="btn btn-primary">Вернуться к покупкам</Link>
+          <Link to="/catalog" className="btn btn-primary">
+            Вернуться к покупкам
+          </Link>
         </div>
       ) : (
         <div>
@@ -111,36 +126,12 @@ const BucketPage = () => {
                     </p>
                   </div>
                   <div className="d-flex flex-column align-items-end">
-                    <div className="d-flex align-items-center mb-2">
-                      <button 
-                        className="btn btn-outline-secondary btn-sm"
-                        onClick={() => decreaseQuantity(item.id)}
-                        disabled={item.quantity <= 1}
-                      >
-                        -
-                      </button>
-                      
-                      <input
-                        type="number"
-                        min="1"
-                        value={item.quantity}
-                        onChange={(e) => handleQuantityChange(item.id, e.target.value)}
-                        className="form-control mx-2 text-center"
-                        style={{ width: '60px' }}
-                      />
-                      
-                      <button 
-                        className="btn btn-outline-secondary btn-sm"
-                        onClick={() => increaseQuantity(item.id)}
-                      >
-                        +
-                      </button>
-                    </div>
-                    
+                    <p className="mb-2">
+                      Количество: {item.quantity}
+                    </p>
                     <p className="mb-2 fw-bold">
                       Сумма: {(item.Product.price * item.quantity).toLocaleString()} руб.
                     </p>
-                    
                     <button 
                       className="btn btn-outline-danger"
                       onClick={() => handleRemoveItem(item.id)}

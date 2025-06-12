@@ -5,31 +5,43 @@ const { VITE_TARGET } = import.meta.env;
 import { axiosInstance } from "../shared/axiosInstance";
 
 export class BucketApi {
-
-
-  //!Получение корзины юзера
-  static async getUserBucket(id) {
-    const { data } = await axiosInstance.get(`/bucket/${id}`);
-    return data;
+  static async getUserBucket(userId) {
+    try {
+      const { data } = await axiosInstance.get(`/bucket/${userId}`);
+      return data;
+    } catch (error) {
+      console.error("Error getting user bucket:", error);
+      throw error;
+    }
   }
 
-  //!Добавить 
   static async addItem(inputs) {
-    const { data } = await axiosInstance.post(`/bucket/add`, inputs);
-    return data;
+    try {
+      const { data } = await axiosInstance.post(`/bucket/add`, inputs);
+      return data;
+    } catch (error) {
+      console.error("Error adding item to bucket:", error);
+      throw error;
+    }
   }
 
-
-  //!Удаление 1 товра
-  static async delete(id) {
-    const { data } = await axiosInstance.delete(`/bucket/${id}`);
-    return data;
+  static async delete(itemId) {
+    try {
+      const { data } = await axiosInstance.delete(`/bucket/${itemId}`);
+      return data;
+    } catch (error) {
+      console.error("Error deleting item from bucket:", error);
+      throw error;
+    }
   }
 
-//!Очистка всей корзины
-    static async deleteAll(id) {
-    const { data } = await axiosInstance.delete(`/bucket/all/${id}`);
-    return data;
+  static async deleteAll(userId) {
+    try {
+      const { data } = await axiosInstance.delete(`/bucket/all/${userId}`);
+      return data;
+    } catch (error) {
+      console.error("Error clearing bucket:", error);
+      throw error;
+    }
   }
-
 }
