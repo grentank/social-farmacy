@@ -1,2 +1,1 @@
-VITE_TARGET=http://localhost:3000
-VITE_API=/api/v1.0
+VITE_TARGET=http://localhost:3000/api
