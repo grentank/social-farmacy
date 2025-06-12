@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import { UserApi } from '../services/UserApi'; 
-import AuthButton from '../components/AuthButton/AuthButton';
+
+import React, { useState } from "react";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import { UserApi } from "../services/UserApi";
+import AuthButton from "../components/AuthButton/AuthButton";
 
 export default function AuthPage() {
-  const [form, setForm] = useState({ name: '', email: '', password: '' });
+  const [form, setForm] = useState({ name: "", email: "", password: "" });
   const [isLogin, setIsLogin] = useState(true);
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -21,9 +22,12 @@ export default function AuthPage() {
         : await UserApi.register(form);
 
       setCurrentUser(data.user || null);
-      alert(data.message || 'Успешно');
+      alert(data.message || "Успешно");
+
+      // Очищаем инпуты
+      setForm({ name: "", email: "", password: "" });
     } catch (error) {
-      alert(error.response?.data?.error || 'Ошибка при отправке');
+      alert(error.response?.data?.error || "Ошибка при отправке");
     }
   };
 
@@ -31,68 +35,94 @@ export default function AuthPage() {
     try {
       await UserApi.logout();
       setCurrentUser(null);
-      alert('Вы вышли из системы');
+      alert("Вы вышли из системы");
     } catch (error) {
-      alert('Ошибка при выходе');
+      alert("Ошибка при выходе");
     }
   };
 
+  const backgroundStyle = {
+    backgroundImage: "url('https://png.pngtree.com/thumb_back/fh260/background/20240720/pngtree-tablets-in-bulk-are-multicolored-on-a-blue-background-the-concept-image_15902349.jpg')",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    minHeight: "55vh",
+    padding: "20px"
+  };
+
+  const formStyle = {
+    backgroundColor: "rgba(255, 255, 255, 0.9)",
+    padding: "20px",
+    borderRadius: "10px",
+    maxWidth: "400px",
+    margin: "0 auto"
+  };
+
   return (
-    <div style={{ padding: 20, maxWidth: 400, margin: '0 auto' }}>
-      <h2>{isLogin ? 'Вход' : 'Регистрация'}</h2>
-      <Form onSubmit={handleSubmit}>
-        {!isLogin && (
+    <div style={backgroundStyle}>
+      <div style={formStyle}>
+        <h2>{isLogin ? "Вход" : "Регистрация"}</h2>
+        <Form onSubmit={handleSubmit}>
+          {!isLogin && (
+            <Form.Group className="mb-3">
+              <Form.Control
+                type="text"
+                name="name"
+                placeholder="Введите имя"
+                value={form.name}
+                onChange={handleChange}
+                required
+              />
+            </Form.Group>
+          )}
+
           <Form.Group className="mb-3">
             <Form.Control
-              type="text"
-              name="name"
-              placeholder="Введите имя"
-              value={form.name}
+              type="email"
+              name="email"
+              placeholder="Введите email"
+              value={form.email}
               onChange={handleChange}
               required
             />
           </Form.Group>
+
+          <Form.Group className="mb-3">
+            <Form.Control
+              type="password"
+              name="password"
+              placeholder="Введите пароль"
+              value={form.password}
+              onChange={handleChange}
+              required
+            />
+          </Form.Group>
+
+          <AuthButton isLogin={isLogin} />
+        </Form>
+
+        <Button
+          variant="link"
+          onClick={() => {
+            setIsLogin(!isLogin);
+            setForm({ name: "", email: "", password: "" });
+          }}
+          className="mt-3 w-100"
+        >
+          Переключиться на {isLogin ? "регистрацию" : "вход"}
+        </Button>
+
+        {currentUser && (
+          <>
+            <p className="mt-3">
+              Вы вошли как: {currentUser.name || currentUser.email}
+            </p>
+            <Button variant="danger" onClick={handleLogout}>
+              Выйти
+            </Button>
+          </>
         )}
-
-        <Form.Group className="mb-3">
-          <Form.Control
-            type="email"
-            name="email"
-            placeholder="Введите email"
-            value={form.email}
-            onChange={handleChange}
-            required
-          />
-        </Form.Group>
-
-        <Form.Group className="mb-3">
-          <Form.Control
-            type="password"
-            name="password"
-            placeholder="Введите пароль"
-            value={form.password}
-            onChange={handleChange}
-            required
-          />
-        </Form.Group>
-
-        <AuthButton isLogin={isLogin} />
-      </Form>
-
-      <Button
-        variant="link"
-        onClick={() => setIsLogin(!isLogin)}
-        className="mt-3 w-100"
-      >
-        Переключиться на {isLogin ? 'регистрацию' : 'вход'}
-      </Button>
-
-      {currentUser && (
-        <>
-          <p className="mt-3">Вы вошли как: {currentUser.name || currentUser.email}</p>
-          <Button variant="danger" onClick={handleLogout}>Выйти</Button>
-        </>
-      )}
+      </div>
     </div>
   );
 }
