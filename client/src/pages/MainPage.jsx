@@ -13,7 +13,7 @@ export default function MainPage() {
       <FeedbackCard/>
     </div>
 
-    <>
+    
       <MainCard/>
 
     </>
