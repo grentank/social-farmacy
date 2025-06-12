@@ -5,22 +5,22 @@ import MainPage from "./pages/MainPage";
 import AuthPage from "./pages/AuthPage";
 import BucketPage from "./pages/BucketPage";
 import Header from "./layout/Header";
-import useCanvasCursor from "./components/TrailingCursor/TrailingCursor"
+import useCanvasCursor from "./components/TrailingCursor/TrailingCursor";
+import Footer from "./layout/Footer";
 
 function App() {
-
   useCanvasCursor();
- return (
- <BrowserRouter>
- <Header />
- <Routes>
- <Route path="/main" element={<MainPage />} />
- <Route path="/catalog" element={<ProductPage />} />
- <Route path="/login" element={<AuthPage />} />
- <Route path="/register" element={<AuthPage />} />
- <Route path="/bucket" element={<BucketPage />} />
- </Routes>
-  <canvas
+  return (
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/main" element={<MainPage />} />
+        <Route path="/catalog" element={<ProductPage />} />
+        <Route path="/login" element={<AuthPage />} />
+        <Route path="/register" element={<AuthPage />} />
+        <Route path="/bucket" element={<BucketPage />} />
+      </Routes>
+      <canvas
         id="canvas"
         style={{
           position: "fixed",
@@ -30,8 +30,9 @@ function App() {
           zIndex: 9999,
         }}
       />
- </BrowserRouter>
- );
+      <Footer />
+    </BrowserRouter>
+  );
 }
 
 export default App;

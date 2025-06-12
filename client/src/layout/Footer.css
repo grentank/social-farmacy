@@ -1,0 +1,112 @@
+.pharmacy-footer {
+  background: linear-gradient(90deg, #0f2027 0%, #2c5364 100%);
+  color: #eafff2;
+  padding: 42px 0 20px 0;
+  font-size: 16px;
+  box-shadow: 0 -2px 12px 0 rgba(44,83,100,0.14);
+}
+
+.footer-main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.footer-section {
+  flex: 1 1 240px;
+  margin-bottom: 32px;
+  min-width: 220px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 14px;
+  padding: 18px 24px 18px 18px;
+  margin-right: 16px;
+  box-shadow: 0 2px 24px 0 rgba(44,83,100,0.08);
+}
+
+.footer-section:last-child {
+  margin-right: 0;
+}
+
+.footer-section h4,
+.footer-section h5 {
+  margin-bottom: 14px;
+  font-weight: 700;
+  color: #f3ff1b;
+  letter-spacing: 1px;
+}
+
+.footer-section a {
+  color: #ddeeff;
+  text-decoration: none;
+  transition: color .2s, text-shadow .2s;
+  font-weight: 500;
+}
+.footer-section a:hover {
+  color: #00ffb3;
+  text-shadow: 0 0 4px #00ffb3, 0 0 2px #fff;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.footer-section ul li {
+  margin-bottom: 10px;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.footer-socials img {
+  width: 30px;
+  height: 30px;
+  filter: brightness(1.1) drop-shadow(0 0 4px #00ffb3);
+  border-radius: 50%;
+  background: #fff;
+  padding: 2px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.footer-socials img:hover {
+  transform: scale(1.15) rotate(-8deg);
+  box-shadow: 0 4px 20px 0 #00ffb3a6;
+}
+
+.footer-joke {
+  font-size: 15px;
+  color: #fffa;
+  margin-top: 9px;
+  font-style: italic;
+}
+
+.footer-copy {
+  text-align: center;
+  color: #b0f7e6;
+  margin-top: 12px;
+  font-size: 15px;
+  padding-top: 14px;
+  border-top: 2px dashed #00ffb36b;
+}
+
+.footer-heart {
+  color: #00ffb3;
+  font-weight: 700;
+  margin-left: 6px;
+}
+
+@media (max-width: 800px) {
+  .footer-main {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .footer-section {
+    margin-bottom: 18px;
+    margin-right: 0;
+  }
+}
