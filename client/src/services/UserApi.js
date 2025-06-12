@@ -1,21 +1,22 @@
-import axios from 'axios'
+import axios from "axios"
 
-const { VITE_TARGET } = import.meta.env
+const { VITE_TARGET } = import.meta.env;
 
-import { axiosInstance } from '../shared/axiosInstance'
+import { axiosInstance } from "../shared/axiosInstance";
 
 export class UserApi {
 
   static async getAll() {
-    const { data } = await axiosInstance.get(`/users`)
+    const { data } = await axiosInstance.get(`/user`);
     return data
   }
 
   // * Авторизация начинает тут
   static async register(inputs) {
-    const { data } = await axiosInstance.post(`/auth/register`, 
+    const { data } = await axiosInstance.post(
+      `/auth/register`,
       inputs // * Чтобы куки принимались клиентом
-    )
+    );
     return data
   }
 
@@ -39,17 +40,17 @@ export class UserApi {
   // * Авторизация заканчивается тут
 
   static async delete(id) {
-    const { data } = await axiosInstance.delete(`/users/${id}`)
+    const { data } = await axiosInstance.delete(`/user/${id}`)
     return data
   }
 
   static async getOne(id) {
-    const { data } = await axiosInstance.get(`/users/${id}`)
+    const { data } = await axiosInstance.get(`/user/${id}`);
     return data
   }
 
   static async update(id, inputs) {
-    const { data } = await axiosInstance.put(`/users/${id}`, inputs)
+    const { data } = await axiosInstance.put(`/user/${id}`, inputs);
     return data
   }
 }
