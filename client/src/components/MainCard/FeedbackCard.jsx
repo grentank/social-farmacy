@@ -18,11 +18,11 @@ export default function FeedbackCard() {
     var1: [
       { img: otziv1, title: "Вадим Тимлид Вильгельм", text: "Один из лучших сервисов в мире", likes: 64 },
       { img: otziv2, title: "Алена", text: "После феназепама сидела неделю в подвале", likes: 1000001 },
-      { img: otziv3, title: "Юрий", text: "После двух таблеток ебашу за троих", likes: 2 }
+      { img: otziv3, title: "Юрий", text: "После двух таблеток работаю за троих", likes: 2 }
     ],
     var2: [
-      { img: otziv4, title: "Александр Компас Колчин", text: "закинулся таблетосами через месяц уже смогу ходить", likes: 10 },
-      { img: otziv5, title: "Денис Главный", text: "Огурчики должны поспеть вовремя", likes: 20 },
+      { img: otziv4, title: "Александр Компас Колчин", text: "купил таблетки, надеюсь через месяц уже смогу ходить", likes: 10 },
+      { img: otziv5, title: "Денис Интересный", text: "Огурчики должны поспеть вовремя", likes: 20 },
       { img: otziv6, title: "Иван-Дизель Крестоношин", text: "Покупаю всей семье, рекомендую", likes: 30 }
     ]
   };
@@ -34,7 +34,7 @@ export default function FeedbackCard() {
   const changeValueLike = (type, index) => {
     setFeedbacks(prev => {
       const updated = {...prev};
-      updated[type][index].likes += 0.5; // ПОЧЕМУ???????
+      updated[type][index].likes += 1; // ПОЧЕМУ???????
       return updated;
     });
   };

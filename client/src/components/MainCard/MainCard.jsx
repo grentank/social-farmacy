@@ -1,8 +1,8 @@
 
 import Carousel from 'react-bootstrap/Carousel';
-import ExampleCarouselImage1 from '../../public/countryFeature.jpg';
-import ExampleCarouselImage2 from '../../public/Help.jpg'
-import ExampleCarouselImage3 from '../../public/vite.svg'
+import ExampleCarouselImage2 from '../../public/countryFeature.jpg';
+import ExampleCarouselImage1 from '../../public/img2.jpg'
+import ExampleCarouselImage3 from '../../public/img3.jpg'
 
 
 export default function MainCard() {
