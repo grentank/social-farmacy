@@ -112,3 +112,32 @@
     min-width: 0;
   }
 }
+
+@media (max-width: 480px) {
+  .pharmacy-footer {
+    font-size: 0.95rem;
+    padding: 22px 0 8px 0;
+  }
+  .footer-main {
+    padding: 0 4px;
+    gap: 14px;
+  }
+  .footer-section h4,
+  .footer-section h5 {
+    font-size: 1rem;
+    margin-bottom: 6px;
+  }
+  .footer-socials img {
+    width: 24px;
+    height: 24px;
+    padding: 1.5px;
+  }
+  .footer-joke {
+    font-size: 0.93rem;
+    margin-top: 12px;
+  }
+  .footer-copy {
+    font-size: 0.92rem;
+    margin-top: 18px;
+  }
+}
