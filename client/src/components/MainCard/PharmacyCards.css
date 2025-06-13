@@ -1,0 +1,95 @@
+
+/* Основные стили контейнера */
+.pharmacy-cards-container {
+  max-width: 1200px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+
+.pharmacy-section-title {
+  text-align: center;
+  color: #11664a;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 50px;
+  position: relative;
+}
+
+.title-underline {
+  display: block;
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #10b26a, #0d6efd);
+  margin: 15px auto 0;
+  border-radius: 3px;
+}
+
+.cards-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+/* Стили карточки */
+.pharmacy-card {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.12);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border-left: 4px solid #10b26a;
+}
+
+.pharmacy-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(31, 38, 135, 0.15);
+}
+
+.image-container {
+  height: 220px;
+  overflow: hidden;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.pharmacy-card:hover .card-image {
+  transform: scale(1.1);
+}
+
+.card-content {
+  padding: 20px;
+}
+
+.card-title {
+  color: #11664a;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.card-description {
+  color: #5c6f7c;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 768px) {
+  .cards-row {
+    grid-template-columns: 1fr;
+  }
+  
+  .pharmacy-section-title {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+  }
+  
+  .image-container {
+    height: 180px;
+  }
+}
