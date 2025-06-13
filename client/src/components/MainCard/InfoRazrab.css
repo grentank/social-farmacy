@@ -1,0 +1,52 @@
+
+/* FeedbackCard.css */
+
+.developers-block {
+  padding: 20px 0;
+  background-color: #f8f9fa; /* Светло-серый фон */
+  border-radius: 8px;
+  background: linear-gradient(100deg, #f5fffb 0%, #e4fcfd 100%);
+  margin-top: 30px;
+}
+
+.developers-block h2 {
+  color: #2a6496; /* Медицинский синий */
+  text-align: center;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+.developer-card {
+  text-align: center;
+  padding: 15px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.developer-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.developer-image {
+  width: 80px !important;
+  height: 80px !important;
+  object-fit: cover;
+  border: 3px solid #e3f2fd !important; /* Светло-голубая рамка */
+  margin: 0 auto 10px !important;
+}
+
+.developer-name {
+  display: block;
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+  margin-top: 8px;
+}
+
+.developer-email {
+  display: block;
+  font-size: 12px;
+  color: #6c757d;
+  margin-top: 5px;
+}
