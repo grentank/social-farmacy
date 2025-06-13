@@ -8,13 +8,15 @@ import { ProductApi } from "../../services/ProductApi";
 import { SaleApi } from "../../services/SaleApi";
 import { BucketApi } from "../../services/BucketApi";
 
-export default function ProductsAndSales() {
+export default function ProductsAndSales({currentUser}) {
   const [products, setProducts] = useState([]);
   const [saleProducts, setSaleProducts] = useState([]);
   const [hovered, setHovered] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const currentUserId = 1; // В реальном приложении брать из контекста/авторизации
+
+
 
   useEffect(() => {
     const getProducts = async () => {
@@ -59,6 +61,12 @@ export default function ProductsAndSales() {
     setShowModal(false);
     setSelectedProduct(null);
   };
+
+  const handleAddToHot = (id) =>{
+  const hotCard =  products.find((el)=>el.id === id)
+
+  setSaleProducts((prev)=>[...prev,hotCard])
+  }
 
   const handleAddToCart = async (productId) => {
     try {
@@ -305,6 +313,20 @@ export default function ProductsAndSales() {
               >
                 Подробнее
               </Button>
+              {currentUser.admin&& <Button
+                variant="success"
+                style={{
+                  flex: 1,
+                  fontWeight: 600,
+                  borderRadius: 12,
+                  borderWidth: 2,
+                  boxShadow: "0 2px 8px #eafff2",
+                  transition: "background .16s"
+                }}
+                onClick={() => handleAddToHot(el.id) }
+              >
+                Добавить в Горячие
+              </Button>}
             </Card.Body>
           </Card>
         ))}
