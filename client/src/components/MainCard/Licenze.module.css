@@ -1,0 +1,142 @@
+
+/* Основные стили контейнера */
+.pharmacyCardsContainer {
+  max-width: 1200px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+
+.pharmacySectionTitle {
+  text-align: center;
+  color: #11664a;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 50px;
+  position: relative;
+}
+
+.titleUnderline {
+  display: block;
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #10b26a, #0d6efd);
+  margin: 15px auto 0;
+  border-radius: 3px;
+}
+
+.cardsRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+/* Стили карточки */
+.pharmacyCard {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.12);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border-left: 4px solid #10b26a;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.pharmacyCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(31, 38, 135, 0.15);
+}
+
+.imageContainer {
+  height: 300px;
+  overflow: hidden;
+  position: relative;
+  background: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.cardImage {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  transition: all 0.5s ease;
+  transform-origin: center center;
+}
+
+.pharmacyCard:hover .cardImage {
+  transform: scale(1.1);
+  z-index: 2;
+}
+
+.cardContent {
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardTitle {
+  color: #11664a;
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+  
+  
+}
+
+.cardDescription {
+  color: #5c6f7c;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-top: auto;
+}
+
+/* Эффект "раскрытия" фото */
+.imageContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(16, 178, 106, 0.1);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.pharmacyCard:hover .imageContainer::before {
+  opacity: 1;
+}
+
+/* Адаптация для мобильных */
+@media (max-width: 768px) {
+  .pharmacyCardsContainer {
+    margin: 40px auto;
+  }
+  
+  .pharmacySectionTitle {
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+  }
+  
+  .cardsRow {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .imageContainer {
+    height: 250px;
+    padding: 15px;
+  }
+  
+  .cardContent {
+    padding: 15px;
+  }
+}
