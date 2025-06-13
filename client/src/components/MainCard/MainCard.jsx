@@ -10,7 +10,18 @@ export default function MainCard() {
   return (
     
       <>
-      <h1> Росссия будущего. Уже сегодня! В месте с нами! ❤️ </h1>
+      <br></br>
+<h1 style={{ 
+  backgroundColor: 'rgba(245, 255, 230, 0.95)', 
+  color: '#006400', 
+  textAlign: 'center', 
+  padding: '20px',
+  margin: '0 auto',
+  width: '100%'
+}}>
+  Россия будущего. Уже сегодня! Вместе с нами! ❤️
+</h1>
+     
       <div>
     <Carousel>
       <Carousel.Item>

@@ -5,6 +5,7 @@
   margin: 0 auto;
   background: linear-gradient(100deg, #f5fffb 0%, #e4fcfd 100%);
   min-height: calc(100vh - 120px);
+  text-align: center;
 }
 
 .feedback-title {

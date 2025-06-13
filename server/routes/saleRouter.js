@@ -15,6 +15,8 @@ SaleRouter
   .get("/", SaleController.getAll)
   .delete("/:id", checkId, SaleController.delete)
   .get("/:id", SaleController.getOne)
-  .put("/:id", SaleController.update);
+  .put("/", SaleController.update)
+  // .put("/new/:id, ", SaleController.create);
+
 
 module.exports = SaleRouter;

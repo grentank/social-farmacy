@@ -14,16 +14,16 @@ export default function Header({ currentUser, setCurrentUser }) {
   const navigate = useNavigate();
 
   const logoutHandler = async () => {
-  try {
-    const data = await UserApi.logout();
-    if (data.statusCode === 200) {
-      setCurrentUser({}); 
-      navigate("/main");
+    try {
+      const data = await UserApi.logout();
+      if (data.statusCode === 200) {
+        setCurrentUser({});
+        navigate("/main");
+      }
+    } catch (e) {
+      alert("Ошибка выхода");
     }
-  } catch (e) {
-    alert("Ошибка выхода");
-  }
-};
+  };
 
   const navLinkStyle = ({ isActive }) => ({
     color: isActive ? "#10b26a" : "#206259",
@@ -56,6 +56,7 @@ export default function Header({ currentUser, setCurrentUser }) {
         <Navbar.Brand
           as={NavLink}
           to="/main"
+          className="reactpharmacy-brand"
           style={{
             display: "flex",
             alignItems: "center",
@@ -67,7 +68,8 @@ export default function Header({ currentUser, setCurrentUser }) {
         >
           <img
             src="https://i.ibb.co/XfybV1tx/kit.jpg"
-            alt="Аптека"
+            alt="React Pharmacy"
+            className="reactpharmacy-logo"
             style={{
               height: 58,
               marginRight: 10,
@@ -77,15 +79,14 @@ export default function Header({ currentUser, setCurrentUser }) {
             }}
           />
           <span>
-            <FaCapsules
-              style={{ color: "#10b26a", marginRight: 7, fontSize: 23 }}
-            />
-            <span style={{ color: "#10b26a" }}>Здоровье</span>
-            <span style={{ color: "#00d375", fontWeight: 900 }}>++</span>
+            <FaCapsules style={{ color: "#10b26a", marginRight: 7, fontSize: 23 }} />
+            <span style={{ color: "#10b26a" }}>React</span>
+            <span style={{ color: "#00d375", fontWeight: 900 }}>Pharmacy</span>
           </span>
         </Navbar.Brand>
+        {/* Скрывать адрес на мобильных */}
         <div
-          className="d-none d-md-block"
+          className="d-none d-md-block reactpharmacy-address"
           style={{
             marginLeft: 26,
             color: "#34bfa3",
@@ -109,11 +110,7 @@ export default function Header({ currentUser, setCurrentUser }) {
             <NavLink to="/bucket" style={navLinkStyle}>
               <FaShoppingCart style={{ marginRight: 7, fontSize: 17 }} />
               Корзина
-              <Badge
-                pill
-                bg="success"
-                style={{ marginLeft: 5, fontSize: 12 }}
-              >
+              <Badge pill bg="success" style={{ marginLeft: 5, fontSize: 12 }}>
                 IT
               </Badge>
             </NavLink>
@@ -123,6 +120,7 @@ export default function Header({ currentUser, setCurrentUser }) {
               <Button
                 variant="outline-success"
                 size="sm"
+                className="reactpharmacy-userbtn"
                 style={{
                   fontWeight: 600,
                   letterSpacing: "0.5px",
@@ -163,6 +161,7 @@ export default function Header({ currentUser, setCurrentUser }) {
                       : "outline-success"
                   }
                   size="sm"
+                  className="reactpharmacy-userbtn"
                   style={{
                     fontWeight: 600,
                     letterSpacing: "0.5px",

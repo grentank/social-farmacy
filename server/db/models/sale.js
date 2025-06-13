@@ -4,8 +4,8 @@ module.exports = (sequelize, DataTypes) => {
  id: { type: DataTypes.BIGINT, primaryKey: true, autoIncrement: true },
  user_id: { type: DataTypes.BIGINT, allowNull: false },
  product_id: { type: DataTypes.BIGINT, allowNull: false },
- date_start: { type: DataTypes.DATE, allowNull: false },
- date_end: { type: DataTypes.DATE }
+ date_start: { type: DataTypes.DATE},
+ date_end: { type: DataTypes.DATE}
  }, {
  tableName: 'Sales',
  timestamps: false
