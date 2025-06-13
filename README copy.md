@@ -164,7 +164,7 @@ export default App;
 ## Шаг 6: Добавление базовых стилей
 
 1. Создайте файл `src/styles.css`:
-
+//
 ```css
 .task {
   border: 1px solid #ccc;
