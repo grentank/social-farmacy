@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       name: { type: DataTypes.TEXT, allowNull: false },
       email: { type: DataTypes.TEXT, allowNull: false, unique: true },
       password: { type: DataTypes.TEXT, allowNull: false },
-      admin: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false },
+      admin: { type: DataTypes.BOOLEAN, allowNull: false, defaultValue: true },
     },
     {
       tableName: "Users",

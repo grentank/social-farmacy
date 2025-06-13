@@ -74,10 +74,10 @@ class SaleController {
 
   static async update(req, res) {
     try {
-        const { id } = req.params;
-        const { data_start, date_end } = req.body;
-        const updateSale = await SaleService.UpdateSale(id, {
-            data_start,
+        const { user_id, product_id, date_start, date_end} = req.body;
+        
+        const updateSale = await SaleService.UpdateSale(user_id, product_id, {
+            date_start,
             date_end
         });
         res.status(200).json(

@@ -1,4 +1,4 @@
-const { where } = require("sequelize");
+const { where, and } = require("sequelize");
 const { Sale } = require("../db/models")
 
 class SaleService {
@@ -22,13 +22,21 @@ class SaleService {
    }
   }
 
-  static async UpdateSale(id, data) {
+  static async UpdateSale(user_id, product_id, data) {
 
     try {
-        return await Sale.update(data, {where:{id}});      
-        
+        return await Sale.update(data, {
+  where: {
+    user_id: user_id,
+    product_id: product_id
+  },
+  returning: true, // Для PostgreSQL - возвращать обновленную запись
+  plain: true       
+});
     } catch (error) {
-        throw new Error(`Ошибка обновления акционного товара: ${error.message}`);
+     console.log(error);
+     
+      throw new Error(`Ошибка обновления акционного товара: ${error.message}`);
     }
   }
 
