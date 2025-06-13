@@ -25,7 +25,7 @@ function App() {
         <Route path="/catalog" element={<ProductPage currentUser={currentUser} /> } />
         <Route path="/login" element={<AuthPage setCurrentUser={setCurrentUser} currentUser={currentUser}/>} />
         <Route path="/register" element={<AuthPage setCurrentUser={setCurrentUser} currentUser={currentUser} />} />
-        <Route path="/bucket" element={<BucketPage />} />
+        <Route path="/bucket" element={<BucketPage  currentUser={currentUser}/>}  />
       </Routes>
       <canvas
         id="canvas"

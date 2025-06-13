@@ -4,11 +4,11 @@ import './BucketPage.css';
 import { Link } from "react-router-dom";
 import { BucketApi } from "../services/BucketApi";
 
-const BucketPage = () => {
+const BucketPage = ({currentUser}) => {
   const [bucketItems, setBucketItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const currentUserId = 1; // В реальном приложении брать из контекста/авторизации
+  const currentUserId = currentUser.id; //!
 
   useEffect(() => {
     const fetchBucket = async () => {
