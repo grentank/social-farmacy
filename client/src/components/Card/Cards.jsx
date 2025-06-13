@@ -150,7 +150,7 @@ export default function ProductsAndSales() {
 
   return (
     <>
-      {/* Горячие предложения */}
+
       <h2 style={{
         marginTop: 16,
         marginBottom: 8,
