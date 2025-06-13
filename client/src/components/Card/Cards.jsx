@@ -60,6 +60,7 @@ export default function ProductsAndSales({ currentUser }) {
   const handleAddToHot = (id) => {
     const hotCard = products.find((el) => el.id === id);
     setSaleProducts((prev) => [...prev, hotCard]);
+    // SaleApi.updateSale(currentUser.id, id, new Date(), new Date())
   };
 
   const handleRemoveFromHot = (id) => {

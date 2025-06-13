@@ -15,13 +15,18 @@
         return data
      }
 
-     static async createSale(id) {
-        const { data } = await axiosInstance.put(`/sale/${id}`)
-        return data
-     }
+   //   static async createSale(id) {
+   //      const { data } = await axiosInstance.put(`/sale/${id}`)
+   //      return data
+   //   }
 
      static async deleteSale(id) {
         const { data } =  await axiosInstance.delete(`/sale/${id}`) 
+        return data
+     }
+
+      static async updateSale(user_id, product_id, date_end, date_start) {
+        const { data } =  await axiosInstance.put(`/sale`, {user_id, product_id, date_end, date_start}) 
         return data
      }
 
