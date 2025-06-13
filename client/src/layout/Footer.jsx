@@ -6,7 +6,7 @@ function Footer() {
     <footer className="pharmacy-footer">
       <div className="footer-main">
         <div className="footer-section">
-          <h4>💊 Аптека «Здоровье++»</h4>
+          <h4>💊 ReactPharmacy</h4>
           <p>
             <span role="img" aria-label="location">📍</span>
             ул. Программистов, д. 42, офис 0x10, г. Кодоград
