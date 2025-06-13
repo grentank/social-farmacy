@@ -40,6 +40,7 @@ export default function FeedbackCard() {
   };
 
   return (
+    <>
     <div className="feedback-container">
       <h3 className="feedback-title">Отзывы</h3>
       <div className="feedback-buttons">
@@ -71,5 +72,6 @@ export default function FeedbackCard() {
       </div>
       <span className="feedback-disclaimer">Все совпадения случайны!</span>
     </div>
+    </>
   );
 }
