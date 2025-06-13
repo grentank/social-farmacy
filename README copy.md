@@ -159,7 +159,7 @@ function App() {
 }
 
 export default App;
-```
+```t /////
 
 ## Шаг 6: Добавление базовых стилей
 
