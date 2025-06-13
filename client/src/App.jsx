@@ -16,7 +16,7 @@ function App() {
       <Routes>
         <Route path="/main" element={<MainPage />} />
         <Route path="/catalog" element={<ProductPage />} />
-        <Route path="/login" element={<AuthPage />} />
+        <Route path="/login" element={<AuthPage setCurrentUser={setCurrentUser} currentUser={currentUser}/>} />
         <Route path="/register" element={<AuthPage setCurrentUser={setCurrentUser} currentUser={currentUser} />} />
         <Route path="/bucket" element={<BucketPage />} />
       </Routes>

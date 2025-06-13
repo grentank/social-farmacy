@@ -23,10 +23,10 @@ export default function AuthPage({setCurrentUser, currentUser}) {
 
       setCurrentUser(data.user || null);
       alert(data.message || "Успешно");
-      navigate('/main')
-
+      // console.log({data});
       // Очищаем инпуты
       setForm({ name: "", email: "", password: "" });
+      navigate('/main')
     } catch (error) {
       alert(error.response?.data?.error || "Ошибка при отправке");
     }
