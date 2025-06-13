@@ -40,7 +40,7 @@ export default function AuthPage({setCurrentUser, currentUser}) {
       alert("Ошибка при выходе");
     }
   };
-
+//!
   // const backgroundStyle = {
   //   backgroundImage: "url('https://png.pngtree.com/thumb_back/fh260/background/20240720/pngtree-tablets-in-bulk-are-multicolored-on-a-blue-background-the-concept-image_15902349.jpg')",
   //   backgroundSize: "cover",
