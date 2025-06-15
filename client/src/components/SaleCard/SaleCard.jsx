@@ -4,7 +4,7 @@ import { ProductApi } from '../../services/ProductApi'
 
 export default function SaleCard() {
   const [saleProducts, setSaleProducts] = useState([])
-
+//coment
   useEffect(() => {
     const getSaleProducts = async () => {
       try {
